@@ -1,0 +1,184 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[144]:
+
+
+pip install nltk
+
+
+# In[145]:
+
+
+import nltk
+
+
+# In[146]:
+
+
+from nltk.tokenize import sent_tokenize
+
+
+# In[147]:
+
+
+file=open("file1.txt","r")
+text=file.read()
+print(text)
+
+
+# In[148]:
+
+
+sentence=sent_tokenize(text)
+
+
+# In[149]:
+
+
+print("number of sentence:",len(sentence))
+for i in range(len(sentence)):
+    print("\nsentence:",i+1,":",sentence[i])
+
+
+# In[150]:
+
+
+from nltk.tokenize import word_tokenize
+
+
+# In[151]:
+
+
+word=word_tokenize(text)
+print("number of sentence:",len(word))
+print(word)
+    
+
+
+# In[152]:
+
+
+from nltk.probability import FreqDist
+all_fdist=FreqDist(word)
+all_fdist
+
+
+# In[153]:
+
+
+import matplotlib.pyplot as plt
+import pandas as pd
+all_fdist=pd.Series(dict(all_fdist))
+fig,ax=plt.subplots(figsize=(10,10))
+all_fdist.plot(kind='bar')
+plt.title("frequency distribution of plot")
+plt.ylabel("count")
+plt.show()
+
+
+# In[154]:
+
+
+text=text.lower()
+
+
+# In[155]:
+
+
+import re
+text=re.sub('[^A-Za-z0-9]+',' ',text)
+text=re.sub("\S*\d\S*"," ",text).strip()
+
+
+# In[156]:
+
+
+import nltk
+words=word_tokenize(text)
+stopwords=nltk.corpus.stopwords.words("english")
+removed=[]
+for word in words:
+    if words in sentence:
+        pass
+    else:
+        removed.append(word)
+
+
+# In[157]:
+
+
+all_fdist=FreqDist(removed).most_common(10)
+all_fdist=pd.Series(dict(all_fdist))
+fig,ax=plt.subplots(figsize=(7,7))
+all_fdist.plot(kind='bar')
+plt.title("frequency distribution of plot")
+plt.ylabel("count")
+plt.show()
+
+
+# In[158]:
+
+
+text=text.lower()
+
+
+# In[159]:
+
+
+text
+
+
+# In[ ]:
+
+
+
+
+
+# In[160]:
+
+
+pip install WordCloud
+
+
+# In[170]:
+
+
+from wordcloud import WordCloud,STOPWORDS
+import matplotlib.pyplot as plt
+stopwords=set(STOPWORDS)
+wordcloud=WordCloud(width=800,height=800,background_color='white',stopwords=stopwords,min_font_size=10).generate(text)
+plt.figure(figsize=(8,8),facecolor=None)
+plt.imshow(wordcloud)
+#plt.axis("off")
+plt.tight_layout(pad=0)
+plt.show()
+
+
+# In[171]:
+
+
+from skimage.io import imread
+cloud=imread("colud1.png")
+plt.imshow(cloud)
+
+
+# In[172]:
+
+
+from wordcloud import WordCloud,STOPWORDS
+import matplotlib.pyplot as plt
+stopwords=set(STOPWORDS)
+wordcloud=WordCloud(width=800,height=800,background_color='white',stopwords=stopwords,min_font_size=10,mask=cloud).generate(text)
+plt.figure(figsize=(8,8),facecolor=None)
+plt.imshow(wordcloud)
+#plt.axis("off")
+plt.tight_layout(pad=0)
+plt.show()
+
+
+# In[ ]:
+
+
+
+
